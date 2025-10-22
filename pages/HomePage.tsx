@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import { ArrowRight, Bot, FileWarning, Shield } from '../components/Icons';
+import { ArrowRight, Bot, FileWarning, Shield, Apple } from '../components/Icons';
 
 const PageWrapper = ({ children, className = '' }: { children?: React.ReactNode, className?: string }) => (
     <div className={`container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 ${className}`}>
@@ -22,13 +21,18 @@ const HomePage: React.FC = () => {
                 <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">
                     Early detection & adaptive management for PCOS, Endometriosis, and Menopause. It's not a chatbot—it's your lifelong health copilot.
                 </p>
-                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="mt-8 flex flex-col items-center justify-center gap-4">
                     <Button asChild size="lg">
                         <Link to="/demo">Try the User Demo</Link>
                     </Button>
-                    <Button asChild size="lg" variant="outline">
-                        <Link to="/technical-demo">See Technical Demo</Link>
-                    </Button>
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                        <Button size="default" variant="outline" disabled title="Coming Soon!">
+                            <Apple className="w-5 h-5 mr-2" /> Connect Apple Health
+                        </Button>
+                         <Button asChild size="default" variant="ghost">
+                            <Link to="/technical-demo">See Technical Demo</Link>
+                        </Button>
+                    </div>
                 </div>
             </PageWrapper>
             

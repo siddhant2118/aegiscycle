@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const Icon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -75,4 +74,10 @@ export const Bot = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const ArrowRight = (props: React.SVGProps<SVGSVGElement>) => (
     <Icon {...props}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></Icon>
+);
+
+export const Apple = (props: React.SVGProps<SVGSVGElement>) => (
+  <Icon {...props} strokeWidth="1.5">
+    <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-2.5 6-7 0-3.1-2.4-6-5-6-1.75 0-3.08.8-4 2-1.17-1.42-2.83-2.2-4.5-2.2-3.3 0-6 2.7-6 6 0 3.3 2.5 7 6.5 7 1.9 0 3.5-1.5 3.5-3.5a.5.5 0 0 0-.5-.5.5.5 0 0 0-.5.5c0 .94-1.2 1.94-2.5 1.94-2.5 0-4.5-2.2-4.5-5s2-5 4.5-5c1.7 0 3.2 1.2 4.2 2.7a.5.5 0 0 0 .9 0c1-1.5 2.5-2.7 4.2-2.7 2.2 0 4 1.8 4 5 0 3.3-2.7 6-5 6-.7 0-1.4-.2-2-.5a.5.5 0 0 0-.4.9c.7.4 1.4.6 2.4.6zM12 5.5c-.6 0-1-.4-1-1V1.5a.5.5 0 0 0-1 0V4c0 .8.7 1.5 1.5 1.5a.5.5 0 0 0 0-1z" />
+  </Icon>
 );
