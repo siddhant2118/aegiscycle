@@ -7,7 +7,10 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 import HomePage from './pages/HomePage';
-import DemoPage from './pages/DemoPage';
+import UserDemoPage from './pages/UserDemoPage';
+import TechnicalDemoPage from './pages/DemoPage';
+import PcosEndoPage from './pages/PcosEndoPage';
+import MenopausePage from './pages/MenopausePage';
 import HowItWorksPage from './pages/HowItWorksPage';
 import EvidencePage from './pages/EvidencePage';
 import CliniciansPage from './pages/CliniciansPage';
@@ -41,7 +44,10 @@ const MainLayout: React.FC = () => {
             <main className="flex-grow">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/demo" element={<DemoPage />} />
+                    <Route path="/demo" element={<UserDemoPage />} />
+                    <Route path="/technical-demo" element={<TechnicalDemoPage />} />
+                    <Route path="/pcos-endometriosis" element={<PcosEndoPage />} />
+                    <Route path="/menopause" element={<MenopausePage />} />
                     <Route path="/how-it-works" element={<HowItWorksPage />} />
                     <Route path="/evidence" element={<EvidencePage />} />
                     <Route path="/clinicians" element={<CliniciansPage />} />

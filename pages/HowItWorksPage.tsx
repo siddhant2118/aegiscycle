@@ -19,46 +19,25 @@ const HowItWorksPage: React.FC = () => {
                     AegisCycle is composed of five specialized agents working in a coordinated pipeline to transform raw data into actionable, personalized insights.
                 </p>
                 <div className="mt-12 space-y-4">
-                  {/* Diagram could be more complex with SVG lines connecting them */}
                   <Card className="bg-slate-50 dark:bg-slate-900/50">
-                    <CardHeader>
-                      <CardTitle>1. Ingestion Agent</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Normalizes and validates incoming data from sources like Oura, Apple Health, and manual CSV uploads. Ensures data quality and consistency before processing.</p>
-                    </CardContent>
+                    <CardHeader><CardTitle>1. Ingestion Agent</CardTitle></CardHeader>
+                    <CardContent><p className="text-muted-foreground">Normalizes and validates incoming data from sources like Oura, Apple Health, and manual CSV uploads. Ensures data quality and consistency before processing.</p></CardContent>
                   </Card>
                   <Card className="bg-slate-50 dark:bg-slate-900/50">
-                    <CardHeader>
-                      <CardTitle>2. Risk Scoring Agent</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Calculates key biomarkers (e.g., HOMA-IR, TG:HDL ratio) and analyzes patterns in cycle data and wearables (HRV, sleep efficiency) to quantify risk drivers for PCOS and Endometriosis.</p>
-                    </CardContent>
+                    <CardHeader><CardTitle>2. Risk Scoring Agent</CardTitle></CardHeader>
+                    <CardContent><p className="text-muted-foreground">Calculates key biomarkers (e.g., HOMA-IR, TG:HDL ratio) and analyzes patterns in cycle data and wearables (HRV, sleep efficiency) to quantify risk drivers for PCOS, Endometriosis, and Menopause.</p></CardContent>
                   </Card>
                   <Card className="bg-slate-50 dark:bg-slate-900/50">
-                    <CardHeader>
-                      <CardTitle>3. Planner Agent</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Functions as a multi-armed bandit, selecting and prioritizing lifestyle interventions (e.g., Low-GI/DASH, Mediterranean diet, exercise protocols) based on the individual's risk drivers and stated preferences.</p>
-                    </CardContent>
+                    <CardHeader><CardTitle>3. Planner Agent</CardTitle></CardHeader>
+                    <CardContent><p className="text-muted-foreground">Functions as a multi-armed bandit, selecting and prioritizing lifestyle interventions (e.g., Low-GI/DASH, exercise protocols) based on the individual's risk drivers and stated preferences.</p></CardContent>
                   </Card>
                   <Card className="bg-slate-50 dark:bg-slate-900/50">
-                    <CardHeader>
-                      <CardTitle>4. Coach Agent</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Determines the optimal cadence and content for nudges and check-ins to support adherence to the generated plan, adjusting based on user engagement and progress.</p>
-                    </CardContent>
+                    <CardHeader><CardTitle>4. Coach Agent</CardTitle></CardHeader>
+                    <CardContent><p className="text-muted-foreground">Determines the optimal cadence and content for nudges and check-ins to support adherence to the generated plan, adjusting based on user engagement and progress.</p></CardContent>
                   </Card>
                    <Card className="bg-slate-50 dark:bg-slate-900/50">
-                    <CardHeader>
-                      <CardTitle>5. Clinician Escalation Agent</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">Monitors key biomarkers against pre-defined clinical red-flag thresholds. If a threshold is crossed, it autonomously compiles a comprehensive data pack for review by a human clinician.</p>
-                    </CardContent>
+                    <CardHeader><CardTitle>5. Clinician Escalation Agent</CardTitle></CardHeader>
+                    <CardContent><p className="text-muted-foreground">Monitors key biomarkers against pre-defined clinical red-flag thresholds. If a threshold is crossed, it autonomously compiles a comprehensive data pack for review by a human clinician.</p></CardContent>
                   </Card>
                 </div>
             </section>
@@ -67,8 +46,7 @@ const HowItWorksPage: React.FC = () => {
               <div>
                   <h2 className="text-3xl font-bold">Autonomy & Safety</h2>
                    <p className="mt-4 text-muted-foreground">
-                    Our system is built on the principle of "autonomy within guardrails."
-                    The agent operates independently on a scheduled basis to analyze data and adapt plans, but all actions are constrained by strict, evidence-based rules.
+                    Our system is built on the principle of "autonomy within guardrails." The agent operates independently on a scheduled basis to analyze data and adapt plans, but all actions are constrained by strict, evidence-based rules.
                   </p>
                   <ul className="mt-6 space-y-4 text-muted-foreground">
                     <li className="flex items-start">

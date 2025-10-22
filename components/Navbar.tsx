@@ -9,6 +9,8 @@ import { cn } from '../lib/utils';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/demo', label: 'Demo' },
+  { href: '/pcos-endometriosis', label: 'PCOS & Endo' },
+  { href: '/menopause', label: 'Menopause' },
   { href: '/how-it-works', label: 'How it Works' },
   { href: '/evidence', label: 'Evidence' },
   { href: '/clinicians', label: 'Clinicians' },
@@ -32,7 +34,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   cn(
                     "transition-colors hover:text-primary",
-                    isActive ? "text-primary" : "text-muted-foreground"
+                    isActive ? "text-primary font-semibold" : "text-muted-foreground"
                   )
                 }
               >

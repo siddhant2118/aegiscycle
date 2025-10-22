@@ -3,7 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
-  children: React.ReactNode;
+  // Fix: Made children optional to resolve type error in App.tsx
+  children?: React.ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
 };

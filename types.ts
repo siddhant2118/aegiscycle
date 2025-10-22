@@ -10,6 +10,9 @@ export interface Labs {
     total_chol?: number;
     non_hdl?: number;
     hs_crp?: number;
+    fsh?: number;
+    estradiol?: number;
+    amh?: number;
 }
 
 export interface Vitals {
@@ -27,12 +30,21 @@ export interface CycleEvent {
     pain_max?: number;
 }
 
+export interface MenopauseIntake {
+    vms_per_day?: number;
+    night_temp_spikes?: number;
+    abnormal_bleeding?: boolean;
+    postmenopausal_bleeding?: boolean;
+    dexas?: { date: string; t_score_spine?: number; t_score_hip?: number; }[];
+}
+
 export interface Intake {
     labs: Labs[];
     vitals: Vitals[];
     cycles: CycleEvent[];
     bmi?: number;
     phenotype?: string;
+    menopause?: MenopauseIntake;
 }
 
 export interface RiskResult {
@@ -40,6 +52,9 @@ export interface RiskResult {
     endo_risk: number;
     uncertainty: number;
     drivers: string[];
+    menopause_transition_risk?: number;
+    bone_risk?: number;
+    vms_burden?: number;
 }
 
 export interface PlanAction {

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '../../lib/utils';
 
@@ -9,9 +8,10 @@ const badgeVariants = {
   outline: "text-foreground",
 };
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+// Fix: Changed BadgeProps to a type to correctly inherit HTMLAttributes, fixing the 'className' property error.
+export type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: keyof typeof badgeVariants;
-}
+};
 
 function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   return (

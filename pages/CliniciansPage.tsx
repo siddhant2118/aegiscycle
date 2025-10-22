@@ -41,35 +41,25 @@ const CliniciansPage: React.FC = () => {
       <section className="mt-16">
         <h2 className="text-3xl font-bold text-center">Escalation Triggers</h2>
         <p className="mt-4 text-center text-muted-foreground max-w-3xl mx-auto">
-          Escalations are triggered by conservative, evidence-based thresholds to ensure a high signal-to-noise ratio. Our goal is to flag clinically significant changes that warrant your attention, not to create alert fatigue.
+          Escalations are triggered by conservative, evidence-based thresholds to ensure a high signal-to-noise ratio.
         </p>
-        <div className="mt-10 max-w-2xl mx-auto space-y-4">
-            <div className="flex items-center p-4 border rounded-lg">
-                <FileWarning className="w-6 h-6 mr-4 text-destructive"/>
-                <div>
-                    <h4 className="font-semibold">Severe Insulin Resistance</h4>
-                    <p className="text-sm text-muted-foreground">HOMA-IR ≥ 3.0</p>
+        <div className="mt-10 grid md:grid-cols-2 gap-x-8 gap-y-6">
+            <div>
+                <h3 className="text-lg font-semibold mb-3">PCOS / Endometriosis Triggers</h3>
+                <div className="space-y-3">
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Severe Insulin Resistance</h4><p className="text-xs text-muted-foreground">HOMA-IR ≥ 3.0</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">High Atherogenic Risk</h4><p className="text-xs text-muted-foreground">non-HDL Cholesterol ≥ 160 mg/dL</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">High Systemic Inflammation</h4><p className="text-xs text-muted-foreground">hs-CRP ≥ 3.0 mg/L</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Severe Dysmenorrhea</h4><p className="text-xs text-muted-foreground">Pain score ≥ 7/10 across ≥ 2 consecutive cycles</p></div></div>
                 </div>
             </div>
-             <div className="flex items-center p-4 border rounded-lg">
-                <FileWarning className="w-6 h-6 mr-4 text-destructive"/>
-                <div>
-                    <h4 className="font-semibold">High Atherogenic Risk</h4>
-                    <p className="text-sm text-muted-foreground">non-HDL Cholesterol ≥ 160 mg/dL</p>
-                </div>
-            </div>
-             <div className="flex items-center p-4 border rounded-lg">
-                <FileWarning className="w-6 h-6 mr-4 text-destructive"/>
-                <div>
-                    <h4 className="font-semibold">High Systemic Inflammation</h4>
-                    <p className="text-sm text-muted-foreground">hs-CRP ≥ 3.0 mg/L</p>
-                </div>
-            </div>
-             <div className="flex items-center p-4 border rounded-lg">
-                <FileWarning className="w-6 h-6 mr-4 text-destructive"/>
-                <div>
-                    <h4 className="font-semibold">Severe Dysmenorrhea</h4>
-                    <p className="text-sm text-muted-foreground">Pain score ≥ 7/10 across ≥ 2 consecutive cycles</p>
+             <div>
+                <h3 className="text-lg font-semibold mb-3">Menopause Triggers</h3>
+                <div className="space-y-3">
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Postmenopausal Bleeding</h4><p className="text-xs text-muted-foreground">Any bleeding after 12 months of amenorrhea.</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Osteoporosis Indication</h4><p className="text-xs text-muted-foreground">DEXA T-score ≤ -2.5</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Severe VMS / Insomnia</h4><p className="text-xs text-muted-foreground">High frequency of vasomotor symptoms impacting quality of life.</p></div></div>
+                    <div className="flex items-center p-3 border rounded-lg"><FileWarning className="w-5 h-5 mr-3 text-destructive flex-shrink-0"/><div><h4 className="font-semibold text-sm">Positive Mood Screen</h4><p className="text-xs text-muted-foreground">Indication of significant mood changes warranting review.</p></div></div>
                 </div>
             </div>
         </div>
