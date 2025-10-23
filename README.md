@@ -1,7 +1,5 @@
 # AegisCycle: Agentic AI for Reproductive Longevity
 
-![AegisCycle Hero Image](https://storage.googleapis.com/aistudio-public/promote/aegis_readme_banner.png)
-
 **AegisCycle** is a web application demonstrating an agentic AI copilot designed to proactively manage PCOS, Endometriosis, and Menopause. Its mission is to extend female reproductive longevity and safeguard long-term health through early detection and adaptive management.
 
 This is not just a symptom tracker or a chatbot—it's a proof-of-concept for a lifelong health copilot that works 24/7 to analyze health data, create personalized plans, and bridge the communication gap between patients and clinicians.
