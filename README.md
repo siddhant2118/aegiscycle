@@ -17,7 +17,7 @@ This is not just a symptom tracker or a chatbot—it's a proof-of-concept for a 
 
 This is a static React application built with TypeScript and Tailwind CSS. There is no build step required.
 
-1.  **Open the Application**: Simply open the `index.html` file in a web browser.
+1.  **Open the Application**: 
 2.  **Explore**:
     - The **User Demo** (`/demo`) is the best place to start for an overview of the user experience.
     - The **Technical Demo** (`/technical-demo`) allows you to see the underlying JSON data and the direct inputs/outputs of the AI agents.
