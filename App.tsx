@@ -21,7 +21,7 @@ import DocsPage from './pages/DocsPage';
 
 const App: React.FC = () => {
     return (
-        <ThemeProvider defaultTheme="system" storageKey="aegiscycle-theme">
+        <ThemeProvider defaultTheme="light" storageKey="aegiscycle-theme">
             <ToastProvider>
                 <HashRouter>
                     <MainLayout />
