@@ -29,6 +29,23 @@ AegisCycle is designed to work in two modes:
 -   **Mock Mode (Default)**: Uses local mock functions from `lib/mock.ts` to simulate the AI agent's responses. This allows the demo to run without a backend.
 -   **Live API Mode**: Makes live HTTP requests to a configured backend. This is disabled by default.
 
+### Backend service
+
+The repository now includes a FastAPI backend scaffold under `backend/`. It mirrors the mock logic by default and can proxy to a Dedalus deployment when `DEDALUS_API_BASE` is set.
+
+To run it locally:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements.txt
+uvicorn backend.main:app --reload
+```
+
+Configure environment variables by copying `backend/.env.example` to `backend/.env` and inserting your Dedalus deployment values once you have them.
+
+Edit `lib/config.local.ts` (or create a compatible env file) to point `API_BASE` at the running backend, then disable mock mode inside the technical demo to test live calls.
+
 To enable Live API mode, you would configure the `API_BASE` constant in `lib/api.ts` with your API's URL.
 
 ```typescript
