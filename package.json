@@ -7,18 +7,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "react-dom": "^19.2.0",
+    "clsx": "^2.1.1",
     "react": "^19.2.0",
-    "tailwind-merge": "^3.3.1",
+    "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.4",
-    "clsx": "^2.1.1"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.0",
     "@types/node": "^22.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
     "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^16.5.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
