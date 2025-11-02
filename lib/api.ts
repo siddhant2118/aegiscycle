@@ -1,20 +1,26 @@
 
-// This is a placeholder for the actual environment variable.
-// In a real Next.js app, this would be process.env.NEXT_PUBLIC_API_URL
-const API_BASE = undefined; // Set to a URL string to test live mode
+import { API_BASE, API_KEY } from './config.local';
 
-export const getApiBase = () => API_BASE;
+const sanitizedApiBase = API_BASE?.trim() || undefined;
+
+export const getApiBase = () => sanitizedApiBase;
 
 export const postJSON = async <T,>(path: string, body: object): Promise<T> => {
-    if (!API_BASE) {
+    if (!sanitizedApiBase) {
         throw new Error("API base URL not set. Cannot make live API calls.");
     }
 
-    const response = await fetch(`${API_BASE}${path}`, {
+    const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+    };
+
+    if (API_KEY?.trim()) {
+        headers['Authorization'] = `Bearer ${API_KEY.trim()}`;
+    }
+
+    const response = await fetch(`${sanitizedApiBase}${path}`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify(body),
     });
 
