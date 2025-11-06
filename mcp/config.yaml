@@ -1,0 +1,67 @@
+nodes:
+  - id: intake_router
+    module: mcp.nodes.intake_router
+    type: perception
+    inputs: ["intake"]
+    outputs: ["cycle_logs", "wearable_data", "lab_results", "menopause_data"]
+
+  - id: cycle_parser
+    module: mcp.nodes.cycle_parser
+    type: perception
+    inputs: ["cycle_logs"]
+    outputs: ["normalized_cycle"]
+
+  - id: sensor_ingest
+    module: mcp.nodes.sensor_ingest
+    type: perception
+    inputs: ["wearable_data"]
+    outputs: ["clean_wearable"]
+
+  - id: lab_reader
+    module: mcp.nodes.lab_reader
+    type: perception
+    inputs: ["lab_results"]
+    outputs: ["parsed_labs"]
+
+  - id: signal_analyzer
+    module: mcp.nodes.signal_analyzer
+    type: reasoning
+    inputs: ["normalized_cycle", "clean_wearable", "parsed_labs", "menopause_data"]
+    outputs: ["risk_markers", "drivers", "menopause_indicators"]
+
+  - id: pattern_correlator
+    module: mcp.nodes.pattern_correlator
+    type: reasoning
+    inputs: ["risk_markers", "drivers", "normalized_cycle", "menopause_data"]
+    outputs: ["patterns", "drivers", "menopause_indicators"]
+
+  - id: risk_classifier
+    module: mcp.nodes.risk_classifier
+    type: reasoning
+    inputs: ["patterns", "drivers", "menopause_indicators", "parsed_labs", "clean_wearable", "normalized_cycle", "menopause_data"]
+    outputs: ["risk_result"]
+
+  - id: lifestyle_recommender
+    module: mcp.nodes.lifestyle_recommender
+    type: action
+    inputs: ["risk_result", "drivers"]
+    outputs: ["plan", "recommendations"]
+
+  - id: clinician_pack_maker
+    module: mcp.nodes.clinician_pack_maker
+    type: action
+    condition: "risk_result.get('pcos_risk', 0) > 0.7 or risk_result.get('menopause_transition_risk', 0) > 0.7"
+    inputs: ["risk_result", "patterns", "drivers"]
+    outputs: ["clinician_pack", "escalation"]
+
+  - id: notifier
+    module: mcp.nodes.notifier
+    type: action
+    inputs: ["plan"]
+    outputs: ["notification"]
+
+  - id: feedback_loop
+    module: mcp.memory.feedback_loop
+    type: memory
+    inputs: ["recommendations", "user_feedback"]
+    outputs: ["policy_update"]

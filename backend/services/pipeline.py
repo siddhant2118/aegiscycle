@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Dict
 import httpx
+from typing import Any, Dict
 
 from ..config import get_settings
 from ..models import Intake, Plan, RiskResult, Escalation
 from ..pipeline import mock
+from .mcp_adapter import run_dedalus_pipeline
 
 
 class PipelineService:
@@ -37,19 +38,30 @@ class PipelineService:
 
     async def score_risk(self, intake: Intake) -> RiskResult:
         if self.is_remote:
-            data = await self._call_remote("/risk/score", {"intake": intake.dict(by_alias=True)})
+            data = await self._call_remote("/risk/score", {"intake": intake.model_dump(by_alias=True)})
             return RiskResult.model_validate(data)
-        return mock.mock_risk(intake)
+        try:
+            outputs = run_dedalus_pipeline(intake)
+        except Exception:
+            return mock.mock_risk(intake)
+        return outputs["risk"]
 
     async def generate_plan(self, intake: Intake) -> Plan:
         if self.is_remote:
-            data = await self._call_remote("/plan/generate", {"intake": intake.dict(by_alias=True)})
+            data = await self._call_remote("/plan/generate", {"intake": intake.model_dump(by_alias=True)})
             return Plan.model_validate(data)
-        return mock.mock_plan(intake)
+        try:
+            outputs = run_dedalus_pipeline(intake)
+        except Exception:
+            return mock.mock_plan(intake)
+        return outputs["plan"]
 
     async def check_escalation(self, intake: Intake) -> Escalation:
         if self.is_remote:
-            data = await self._call_remote("/escalate/check", {"intake": intake.dict(by_alias=True)})
+            data = await self._call_remote("/escalate/check", {"intake": intake.model_dump(by_alias=True)})
             return Escalation.model_validate(data)
-        return mock.mock_escalation(intake)
-
+        try:
+            outputs = run_dedalus_pipeline(intake)
+        except Exception:
+            return mock.mock_escalation(intake)
+        return outputs["escalation"]
