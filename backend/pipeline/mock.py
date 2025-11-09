@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from ..models import Intake, Plan, PlanAction, RiskResult, Escalation
+from models import Intake, Plan, PlanAction, RiskResult, Escalation
 
 
 ALL_ACTIONS: List[PlanAction] = [

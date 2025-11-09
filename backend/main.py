@@ -4,9 +4,9 @@ from functools import lru_cache
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import get_settings
-from .models import Escalation, IntakeRequest, Plan, RiskResult
-from .services.pipeline import PipelineService
+from config import get_settings
+from models import Escalation, IntakeRequest, Plan, RiskResult
+from services.pipeline import PipelineService
 
 
 @lru_cache()

@@ -6,7 +6,7 @@ This folder contains a lightweight FastAPI service that exposes the three endpoi
 - `POST /plan/generate`
 - `POST /escalate/check`
 
-Out of the box the service uses a local mock pipeline that mirrors the deterministic logic in `lib/mock.ts`. At deploy time you can point it to a Dedalus instance by setting `DEDALUS_API_BASE` (and optionally `DEDALUS_API_KEY`). When those variables are present, the service simply forwards requests to the remote Dedalus workflows and returns their responses.
+Out of the box the service uses a local mock pipeline that mirrors the deterministic logic in `frontend/src/lib/mock.ts`. At deploy time you can point it to a Dedalus instance by setting `DEDALUS_API_BASE` (and optionally `DEDALUS_API_KEY`). When those variables are present, the service simply forwards requests to the remote Dedalus workflows and returns their responses.
 
 ## Local development
 
@@ -20,7 +20,7 @@ Out of the box the service uses a local mock pipeline that mirrors the determini
    ```bash
    uvicorn backend.main:app --reload
    ```
-3. Visit http://localhost:8000/docs to try the endpoints or wire the frontend by pointing `lib/config.local.ts` at `http://localhost:8000`.
+3. Visit http://localhost:8000/docs to try the endpoints or wire the frontend by pointing `frontend/src/lib/config.local.ts` at `http://localhost:8000`.
 
 ## Environment variables
 

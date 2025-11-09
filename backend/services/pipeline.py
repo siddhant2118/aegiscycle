@@ -1,67 +1,86 @@
 from __future__ import annotations
 
-import httpx
+import os
+from pathlib import Path
 from typing import Any, Dict
 
-from ..config import get_settings
-from ..models import Intake, Plan, RiskResult, Escalation
-from ..pipeline import mock
-from .mcp_adapter import run_dedalus_pipeline
+import httpx
+from dotenv import load_dotenv
+
+from config import Settings, get_settings
+from models import Escalation, Intake, Plan, RiskResult
+from pipeline.mock import mock_escalation, mock_plan, mock_risk
+
+
+# Always load the backend-local .env so uvicorn can be started from the repo root.
+ENV_PATH = (Path(__file__).resolve().parents[1] / ".env").resolve()
+load_dotenv(ENV_PATH)
 
 
 class PipelineService:
     """
-    Orchestrates calls to either the local mock pipeline or a remote Dedalus instance.
+    Provides the three pipeline operations required by the FastAPI routes.
 
-    This keeps the FastAPI routes agnostic of the execution mode.
+    When DEDALUS_API_BASE is set the service forwards requests to that remote
+    deployment; otherwise it mirrors the deterministic mock logic that powers
+    the frontend demo.
     """
 
-    def __init__(self) -> None:
-        settings = get_settings()
-        self._remote_base = settings.dedalus_api_base
-        self._remote_headers: Dict[str, str] = {}
-        if settings.dedalus_api_key:
-            self._remote_headers["Authorization"] = f"Bearer {settings.dedalus_api_key}"
+    def __init__(self, settings: Settings | None = None) -> None:
+        self.settings = settings or get_settings()
+        self._remote_base = (
+            self.settings.dedalus_api_base.rstrip("/")
+            if self.settings.dedalus_api_base
+            else None
+        )
+        self._headers: Dict[str, str] = {}
+        api_key = self.settings.dedalus_api_key or os.getenv("DEDALUS_API_KEY")
+        if api_key:
+            self._headers["Authorization"] = f"Bearer {api_key}"
 
-    @property
-    def is_remote(self) -> bool:
+    def _using_remote(self) -> bool:
         return bool(self._remote_base)
 
-    async def _call_remote(self, path: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-        if not self._remote_base:
-            raise RuntimeError("Remote pipeline requested but DEDALUS_API_BASE is not set.")
+    def _build_payload(self, intake: Intake) -> Dict[str, Any]:
+        return {"intake": intake.model_dump(by_alias=True)}
 
-        async with httpx.AsyncClient(base_url=self._remote_base, timeout=30.0) as client:
-            response = await client.post(path, json=payload, headers=self._remote_headers)
-            response.raise_for_status()
+    async def _post_remote(self, path: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if not self._remote_base:
+            raise RuntimeError("Remote Dedalus pipeline is not configured.")
+
+        url_path = path if path.startswith("/") else f"/{path}"
+        async with httpx.AsyncClient(
+            base_url=self._remote_base,
+            headers=self._headers,
+            timeout=30.0,
+        ) as client:
+            response = await client.post(url_path, json=payload)
+            try:
+                response.raise_for_status()
+            except httpx.HTTPStatusError as exc:  # pragma: no cover - passthrough
+                status = exc.response.status_code
+                body = exc.response.text
+                raise RuntimeError(
+                    f"Dedalus proxy request failed ({status}): {body}"
+                ) from exc
             return response.json()
 
     async def score_risk(self, intake: Intake) -> RiskResult:
-        if self.is_remote:
-            data = await self._call_remote("/risk/score", {"intake": intake.model_dump(by_alias=True)})
+        if self._using_remote():
+            data = await self._post_remote("/risk/score", self._build_payload(intake))
             return RiskResult.model_validate(data)
-        try:
-            outputs = run_dedalus_pipeline(intake)
-        except Exception:
-            return mock.mock_risk(intake)
-        return outputs["risk"]
+        return mock_risk(intake)
 
     async def generate_plan(self, intake: Intake) -> Plan:
-        if self.is_remote:
-            data = await self._call_remote("/plan/generate", {"intake": intake.model_dump(by_alias=True)})
+        if self._using_remote():
+            data = await self._post_remote("/plan/generate", self._build_payload(intake))
             return Plan.model_validate(data)
-        try:
-            outputs = run_dedalus_pipeline(intake)
-        except Exception:
-            return mock.mock_plan(intake)
-        return outputs["plan"]
+        return mock_plan(intake)
 
     async def check_escalation(self, intake: Intake) -> Escalation:
-        if self.is_remote:
-            data = await self._call_remote("/escalate/check", {"intake": intake.model_dump(by_alias=True)})
+        if self._using_remote():
+            data = await self._post_remote(
+                "/escalate/check", self._build_payload(intake)
+            )
             return Escalation.model_validate(data)
-        try:
-            outputs = run_dedalus_pipeline(intake)
-        except Exception:
-            return mock.mock_escalation(intake)
-        return outputs["escalation"]
+        return mock_escalation(intake)
